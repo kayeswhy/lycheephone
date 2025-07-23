@@ -35,6 +35,42 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.static(PROJECT_ROOT));
 
 
+// CLI support: handle --list-backups and --get-backup <type> before starting the server
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  if (args[0] === '--list-backups') {
+    const getFileInfo = (filePath) => {
+      if (fs.existsSync(filePath)) {
+        const stats = fs.statSync(filePath);
+        try {
+          const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+          return {
+            timestamp: content.metadata.timestamp,
+            size: stats.size,
+            sourceDeviceId: content.metadata.sourceDeviceId
+          };
+        } catch (e) {
+          return { timestamp: null, size: stats.size, sourceDeviceId: 'unknown' };
+        }
+      }
+      return null;
+    };
+    const versions = { manual: getFileInfo(MANUAL_BACKUP_PATH), auto: getFileInfo(AUTO_BACKUP_PATH) };
+    console.log(JSON.stringify(versions, null, 2));
+    process.exit(0);
+  } else if (args[0] === '--get-backup' && (args[1] === 'manual' || args[1] === 'auto')) {
+    const filePath = args[1] === 'manual' ? MANUAL_BACKUP_PATH : AUTO_BACKUP_PATH;
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      console.log(content);
+      process.exit(0);
+    } else {
+      console.error(`No backup file found for type: ${args[1]}`);
+      process.exit(1);
+    }
+  }
+}
+
 // ===================================
 //  V2 云同步 API 路由 (功能保留)
 // ===================================
