@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航页</title>
+    <!-- 引入Google Fonts "Poppins" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            
+            --bg-color: #fdfaf6; /* 温暖的米白背景 */
+            --card-bg-color: rgba(255, 255, 255, 0.85);
+            --text-color: #5c5c5c; /* 柔和的深灰色文字 */
+            --shadow-color: rgba(180, 160, 150, 0.15); /* 柔和的暖色调阴影 */
+
+            
+            --btn1-bg-color: #e8c3c7; /* 灰粉色 */
+            --btn2-bg-color: #b2c8b0; /* 鼠尾草绿 */
+            --btn-text-color: #5c5c5c;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--bg-color); /* 应用新的背景色 */
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased; /* 字体抗锯齿，更平滑 */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        main {
+            padding: 50px 60px;
+            background-color: var(--card-bg-color);
+            backdrop-filter: blur(8px);
+            border-radius: 24px; /* 更圆润的边角 */
+            box-shadow: 0 8px 32px 0 var(--shadow-color); /* 应用新的阴影 */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: var(--text-color);
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 18px 30px;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--btn-text-color); /* 按钮文字颜色 */
+            text-decoration: none;
+            border-radius: 16px; /* 更圆润的按钮边角 */
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
+            border: none; /* 移除按钮边框 */
+        }
+
+        /* 为两个按钮分别设置背景色 */
+        nav a:first-of-type {
+            background-color: var(--btn1-bg-color);
+        }
+        nav a:last-of-type {
+            background-color: var(--btn2-bg-color);
+        }
+
+        /* 统一的悬停和激活效果 */
+        nav a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px 0 var(--shadow-color);
+        }
+
+        nav a:active {
+            transform: translateY(-2px) scale(0.99);
+            box-shadow: 0 4px 10px 0 var(--shadow-color);
+        }
+
+        @media (max-width: 480px) {
+            main {
+                width: 85%;
+                padding: 40px 25px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>选择一个模式进入</h1>
+        <nav>
+            <a href="fullscreen.html">无边框全屏模式</a>
+            <a href="mobile.html">仿手机边框模式</a>
+        </nav>
+    </main>
+</body>
+</html>
